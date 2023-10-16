@@ -1,8 +1,11 @@
+
+
 int numDice = 9; // Number of dice
 Dice[] diceArray = new Dice[numDice];
+int total = 0; // Variable to keep track of the total
 
 void setup() {
-  size(600, 600);
+  size(640, 640);
   textAlign(CENTER, CENTER);
   textSize(32);
   
@@ -15,18 +18,24 @@ void setup() {
 }
 
 void draw() {
-  background(343);
+  background(400);
   
   // Display all dice
   for (int i = 0; i < numDice; i++) {
     diceArray[i].display();
   }
+  
+  // Display the total
+  fill(255);
+  text("Total: " + total, width / 2, height - 50);
 }
 
 void mousePressed() {
-  // Roll all dice when the mouse is clicked
+  // Roll all dice when the mouse is clicked and update the total
+  total = 0;
   for (int i = 0; i < numDice; i++) {
     diceArray[i].roll();
+    total += diceArray[i].getCurrentFace();
   }
 }
 
@@ -92,5 +101,9 @@ class Dice {
   void roll() {
     // Simulate rolling the dice by changing the face value
     currentFace = (int) random(1, numFaces + 1);
+  }
+
+  int getCurrentFace() {
+    return currentFace;
   }
 }
